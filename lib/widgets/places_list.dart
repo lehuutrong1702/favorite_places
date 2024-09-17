@@ -1,5 +1,6 @@
 import 'package:favorite_places/controllers/places_controller.dart';
 import 'package:favorite_places/widgets/new_place.dart';
+import 'package:favorite_places/widgets/place_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,20 +37,24 @@ class PlacesList extends ConsumerWidget {
               );
 
               if (placeItems.isNotEmpty) {
-                content = Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                      itemCount: placeItems.length,
-                      itemBuilder: (ctx, index) {
-                        return Container(
-                          margin: const EdgeInsets.all(8),
-                          child: Text(
-                            placeItems[index].title,
-                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                color: Theme.of(context).colorScheme.onBackground),
-                          ),
+                content = ListView.builder(
+                  itemCount: placeItems.length,
+                  itemBuilder: (ctx, index) {
+                    return ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (ctx) {
+                            return PlaceDetail(place: placeItems[index]);
+                          }),
                         );
-                      }),
+                      },
+                      title: Text(
+                        placeItems[index].title,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onBackground),
+                      ),
+                    );
+                  },
                 );
               }
 
