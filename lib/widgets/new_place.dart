@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:favorite_places/controllers/places_controller.dart';
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/widgets/add_image.dart';
+import 'package:favorite_places/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -71,6 +72,8 @@ class NewPlace extends ConsumerWidget {
                   },
                 ),
                 const SizedBox(height: 10),
+                LocationInput(),
+                  const SizedBox(height: 10),
                 ElevatedButton.icon(
                   onPressed: () {
                     _savePlace(context, ref);
