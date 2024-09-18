@@ -50,11 +50,28 @@ class PlacesList extends ConsumerWidget {
                             }),
                           );
                         },
-                        leading: CircleAvatar(backgroundImage: FileImage(placeItems[index].image),),
+                        leading: CircleAvatar(
+                          backgroundImage: FileImage(placeItems[index].image),
+                        ),
                         title: Text(
                           placeItems[index].title,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.onBackground),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground),
+                        ),
+                        subtitle: Text(
+                          placeItems[index].location!.address,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground),
                         ),
                       );
                     },

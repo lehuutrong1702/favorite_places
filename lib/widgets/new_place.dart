@@ -12,13 +12,18 @@ class NewPlace extends ConsumerWidget {
 
   final _formKey = GlobalKey<FormState>();
   File? _pickedImage;
+  LocationPlace? _location;
   final _enteredTitleController = TextEditingController();
   void _savePlace(BuildContext context, WidgetRef ref) {
-    if (_formKey.currentState!.validate() && _pickedImage != null) {
+    if (_formKey.currentState!.validate() &&
+        _pickedImage != null &&
+        _location != null) {
       _formKey.currentState!.save();
 
-      Place newPlace =
-          Place(title: _enteredTitleController.text, image: _pickedImage!);
+      Place newPlace = Place(
+          title: _enteredTitleController.text,
+          image: _pickedImage!,
+          location: _location);
 
       final controller = ref.read(placesControllerProvider);
 
@@ -35,7 +40,6 @@ class NewPlace extends ConsumerWidget {
         title: const Text('Add a new place'),
       ),
       body: SingleChildScrollView(
-        
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -72,8 +76,12 @@ class NewPlace extends ConsumerWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                LocationInput(),
-                  const SizedBox(height: 10),
+                LocationInput(
+                  onLocationInput: (location) {
+                    _location = location;
+                  },
+                ),
+                const SizedBox(height: 10),
                 ElevatedButton.icon(
                   onPressed: () {
                     _savePlace(context, ref);
