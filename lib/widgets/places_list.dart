@@ -37,24 +37,28 @@ class PlacesList extends ConsumerWidget {
               );
 
               if (placeItems.isNotEmpty) {
-                content = ListView.builder(
-                  itemCount: placeItems.length,
-                  itemBuilder: (ctx, index) {
-                    return ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) {
-                            return PlaceDetail(place: placeItems[index]);
-                          }),
-                        );
-                      },
-                      title: Text(
-                        placeItems[index].title,
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground),
-                      ),
-                    );
-                  },
+                content = Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: placeItems.length,
+                    itemBuilder: (ctx, index) {
+                      return ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) {
+                              return PlaceDetail(place: placeItems[index]);
+                            }),
+                          );
+                        },
+                        leading: CircleAvatar(backgroundImage: FileImage(placeItems[index].image),),
+                        title: Text(
+                          placeItems[index].title,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.onBackground),
+                        ),
+                      );
+                    },
+                  ),
                 );
               }
 
