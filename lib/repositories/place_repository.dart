@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final placesRepositoryProvider = Provider((ref) => PlacesRepository());
 
 class PlacesRepository { 
-   List<Place> places = [Place(title: "Some title")] ; 
+   List<Place> places = [] ; 
 
 
     void addPlaces(Place place) {
