@@ -1,18 +1,22 @@
+import 'package:favorite_places/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 
-class LocationInput extends StatefulWidget {
+class LocationInput extends ConsumerStatefulWidget {
   const LocationInput({super.key});
 
   @override
-  State<LocationInput> createState() {
+  ConsumerState<LocationInput> createState() {
     return _LocationInputState();
   }
 }
 
-class _LocationInputState extends State<LocationInput> {
+class _LocationInputState extends ConsumerState<LocationInput> {
   Location? _pickedLocation;
   var _isGettingLocation = false;
+  String? _address;
+
 
   void _getCurrentLocation() async {
     Location location = Location();
@@ -43,6 +47,11 @@ class _LocationInputState extends State<LocationInput> {
 
     locationData = await location.getLocation();
 
+    final apiService = ref.watch(apiServiceProvider);
+
+    _address = await apiService.loadLocation(
+        locationData.latitude.toString(), locationData.longitude.toString());
+
     setState(() {
       _pickedLocation = location;
       _isGettingLocation = false;
@@ -52,7 +61,7 @@ class _LocationInputState extends State<LocationInput> {
   @override
   Widget build(BuildContext context) {
     Widget previewContent = Text(
-      'No location chosen',
+      _address!=null?_address!:"No chosen location",
       textAlign: TextAlign.center,
       style: Theme.of(context)
           .textTheme
